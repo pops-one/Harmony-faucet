@@ -12,10 +12,7 @@ const host = process.env.REACT_APP_HOST_API;
 
 const Main = () => {
   const [address, setAddress] = useState("");
-  const [error, setError] = useState(null);
   const [shard, setShard] = useState("0");
-  const [isFetching, setIsFetching] = useState(false);
-  const [transactionHash, setTransactionHash] = useState("");
   const {
     faucetStore: { currentFaucet },
   } = useContext(StoreContext);
@@ -30,32 +27,15 @@ const Main = () => {
 
   const sendToAddress = async (event) => {
     event.preventDefault();
-    if (isFetching) {
+    if (currentFaucet.isFetching) {
       return;
     }
 
     if (!address) {
-      setError("Address can't be Empty");
       toast.error("Address can't be Empty");
       return;
     }
-    setError(null);
-    setTransactionHash("");
-    setIsFetching(true);
-    const result = await fetch(host, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ address, shard }),
-    }).then((response) => response.json());
-    console.log(result);
-    setIsFetching(false);
-    if (result.error) {
-      setError(result.error);
-      toast.error(result.error);
-      return;
-    }
-    setTransactionHash(result.hash);
-    toast.success(`Successfully transferred HMC to ${address}.`);
+    currentFaucet.sendToAddress(address);
   };
 
   return (
@@ -76,7 +56,7 @@ const Main = () => {
             { id: "shard3", value: "3", label: "Shard 3", disabled: true },
           ]}
         />
-        <div className={`input-wrapper  ${!!error && "error"}`}>
+        <div className={`input-wrapper  ${!!currentFaucet.error && "error"}`}>
           <input
             type="text"
             placeholder="ONE address"
@@ -86,14 +66,14 @@ const Main = () => {
           />
           <input
             type="submit"
-            className={`send-me ${isFetching && "disabled"}`}
+            className={`send-me ${currentFaucet.isFetching && "disabled"}`}
             value="Send Me"
-            disabled={isFetching}
+            disabled={currentFaucet.isFetching}
           />
         </div>
       </form>
       <Balance balance={currentFaucet.balance} />
-      <TransactionResult transactionHash={transactionHash} />
+      <TransactionResult transactionHash={currentFaucet.transactionHash} />
     </div>
   );
 };
