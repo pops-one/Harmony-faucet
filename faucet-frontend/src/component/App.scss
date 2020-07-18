@@ -1,0 +1,100 @@
+.hm-wrapper {
+  background: #f4f8fa;
+  // background: linear-gradient(
+  //   90deg,
+  //   rgba(95, 196, 216, 1) 0%,
+  //   rgba(130, 232, 201, 1) 100%
+  // );
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 100px;
+  margin: auto;
+  color: #1a295e;
+  .hm-header {
+    height: 100px;
+    display: flex;
+    justify-content: flex-end;
+    .hm-logo {
+      height: 100px;
+      width: 200px;
+    }
+  }
+  .hm-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 50px;
+    .header-text,
+    .sub-header-text {
+      text-align: center;
+      padding-bottom: 20px;
+      margin: 0;
+    }
+    .hm-form {
+      display: flex;
+      flex-direction: column;
+      padding: 0 20vw;
+      align-self: stretch;
+      align-items: stretch;
+      .input-wrapper {
+        position: relative;
+        flex: 1;
+        display: flex;
+        padding: 3px;
+        border-radius: 29px;
+        background: linear-gradient(
+          90deg,
+          rgba(95, 196, 216, 1) 0%,
+          rgba(130, 232, 201, 1) 100%
+        );
+        &.error {
+          background: red;
+        }
+      }
+      .address-input {
+        border: none;
+        flex: 1;
+        border-radius: 27px;
+        font-size: 16px;
+        font-weight: 300;
+        height: 56px;
+        outline: none;
+        padding: 0 160px 0 23px;
+      }
+      .send-me {
+        align-items: center;
+        font-weight: 600;
+        outline: none;
+        padding: 12px 25px;
+        text-align: center;
+        font-size: 16px;
+        background-color: #00aee9;
+        border: 0;
+        border-radius: 27px;
+        color: #fff;
+        height: 56px;
+        position: absolute;
+        right: 3px;
+        top: 3px;
+        cursor: pointer;
+        &.disabled {
+          cursor: not-allowed;
+          background-color: #888888;
+        }
+      }
+    }
+    .claims-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      > div {
+        flex: 1;
+        height: inherit;
+        text-align: center;
+        margin: 50px;
+      }
+    }
+  }
+}

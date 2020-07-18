@@ -1,0 +1,13 @@
+[Unit]
+Description=Harmony Faucet Backend
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/home/ubuntu/harmony-faucet/faucet-backend
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
