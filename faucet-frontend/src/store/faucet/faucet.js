@@ -36,7 +36,8 @@ class Faucet {
     }
   });
 
-  sendToAddress = flow(function* (address, shard) {
+  sendToAddress = flow(function* (address, shard, token) {
+    console.log(token);
     try {
       this.error = null;
       this.transactionHash = "";
@@ -44,6 +45,7 @@ class Faucet {
       const result = yield post("/", {
         address,
         shard,
+        token,
       });
       toast.success(`Successfully transferred HMC to ${address}.`);
       this.transactionHash = result.hash;

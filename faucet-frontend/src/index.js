@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { configure } from "mobx";
 import { toast } from "react-toastify";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+
+import { reCaptchaKey } from "./constants";
 
 import "./index.css";
 import App from "./container/App";
@@ -21,7 +24,9 @@ export const StoreContext = React.createContext(store);
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>
-    <App />
+    <GoogleReCaptchaProvider useRecaptchaNet reCaptchaKey={reCaptchaKey}>
+      <App />
+    </GoogleReCaptchaProvider>
   </StoreContext.Provider>,
   document.getElementById("root")
 );

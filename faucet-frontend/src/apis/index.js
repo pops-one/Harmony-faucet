@@ -11,9 +11,9 @@ const apiRequest = async ({ url, method, data }) => {
     Accept: "application/json",
     "Content-Type": "application/json",
   };
-
   const response = await fetch(`${baseUrl}${url}`, {
     method,
+    headers,
     body: JSON.stringify(data),
   });
 

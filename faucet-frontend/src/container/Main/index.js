@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 import { observer } from "mobx-react";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import "react-toastify/dist/ReactToastify.css";
 import RadioButton from "../../component/Radio";
 import Balance from "../../component/Balance";
@@ -12,9 +13,9 @@ import Dropdown from "../../component/Dropdown";
 const Main = () => {
   const [address, setAddress] = useState("");
   const [shard, setShard] = useState("0");
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const { faucetStore } = useContext(StoreContext);
   const { currentFaucet, faucets } = faucetStore;
-
   useEffect(() => {
     if (currentFaucet.getBalance) {
       currentFaucet.getBalance();
@@ -37,7 +38,9 @@ const Main = () => {
       toast.error("Address can't be Empty");
       return;
     }
-    currentFaucet.sendToAddress(address);
+    const token = await executeRecaptcha("submit_address");
+
+    currentFaucet.sendToAddress(address, shard, token);
   };
 
   return (
