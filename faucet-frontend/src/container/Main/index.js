@@ -1,19 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 import { observer } from "mobx-react";
 import "react-toastify/dist/ReactToastify.css";
 import RadioButton from "../../component/Radio";
 import Balance from "../../component/Balance";
+import FaucetInfo from "../../component/FaucetInfo";
 import TransactionResult from "../../component/TransactionResult";
 import { StoreContext } from "../../index";
-
-// import RecentClaims from "../RecentClaims";
-
-toast.configure({
-  autoClose: 2000,
-  draggable: false,
-  position: toast.POSITION.TOP_CENTER,
-});
 
 const host = process.env.REACT_APP_HOST_API;
 
@@ -26,6 +19,12 @@ const Main = () => {
   const {
     faucetStore: { currentFaucet },
   } = useContext(StoreContext);
+
+  useEffect(() => {
+    if (currentFaucet.getBalance) {
+      currentFaucet.getBalance();
+    }
+  }, [currentFaucet]);
 
   const onShardChange = ({ target }) => setShard(target.value);
 
@@ -61,14 +60,10 @@ const Main = () => {
 
   return (
     <div className="hm-main">
-      {/* <RecentClaims /> */}
-      <h1 className="header-text">
-        HARMONY ONE FAUCET FOR {currentFaucet.name}
-      </h1>
-      <h3 className="sub-header-text">5000 ONE token is sent at a time</h3>
-      <h3 className="sub-header-text">
-        Contract address: {currentFaucet.contractAddress}
-      </h3>
+      <FaucetInfo
+        name={currentFaucet.name}
+        contractAddress={currentFaucet.contractAddress}
+      />
       <form onSubmit={sendToAddress} className="hm-form">
         <RadioButton
           name="shard"
@@ -97,7 +92,7 @@ const Main = () => {
           />
         </div>
       </form>
-      <Balance />
+      <Balance balance={currentFaucet.balance} />
       <TransactionResult transactionHash={transactionHash} />
     </div>
   );
