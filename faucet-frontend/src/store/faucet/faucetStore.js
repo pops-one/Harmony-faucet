@@ -1,7 +1,7 @@
 import { observable, action, flow, decorate } from "mobx";
 import Faucet from "./faucet";
+import { get, post } from "../../apis";
 
-const host = process.env.REACT_APP_HOST_API;
 class FaucetStore {
   isFetching = false;
 
@@ -14,7 +14,7 @@ class FaucetStore {
   fetch = flow(function* () {
     try {
       this.isFetching = true;
-      const result = yield fetch(`${host}/networks`).then((res) => res.json());
+      const result = yield get("/networks");
       if (result.networks) {
         result.networks.forEach((network) => {
           this.faucets.push(new Faucet(network));

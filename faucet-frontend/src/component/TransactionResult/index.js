@@ -1,8 +1,7 @@
-import React from 'react';
+import React from "react";
+import { txnExplorer } from "../../constants";
 
-import './style.scss';
-
-const transactionExplorer = process.env.REACT_APP_TXN_EXPLORER;
+import "./style.scss";
 
 const TransactionResult = ({ transactionHash }) => {
   if (!transactionHash) {
@@ -18,7 +17,13 @@ const TransactionResult = ({ transactionHash }) => {
       <div className="txn-body">
         <span>Explorer</span>
         <span>
-          <a href={`${transactionExplorer}${transactionHash}`} target="_blank" rel="noopener noreferrer">{transactionExplorer}</a>
+          <a
+            href={`${txnExplorer}${transactionHash}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {txnExplorer}
+          </a>
         </span>
       </div>
     </div>

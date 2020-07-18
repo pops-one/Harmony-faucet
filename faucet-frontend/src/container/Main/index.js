@@ -8,8 +8,6 @@ import FaucetInfo from "../../component/FaucetInfo";
 import TransactionResult from "../../component/TransactionResult";
 import { StoreContext } from "../../index";
 
-const host = process.env.REACT_APP_HOST_API;
-
 const Main = () => {
   const [address, setAddress] = useState("");
   const [shard, setShard] = useState("0");

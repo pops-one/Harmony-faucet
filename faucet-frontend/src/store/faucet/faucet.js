@@ -1,6 +1,6 @@
 import { observable, action, flow, decorate } from "mobx";
 import { toast } from "react-toastify";
-const host = process.env.REACT_APP_HOST_API;
+import { get, post } from "../../apis";
 class Faucet {
   isFetching = false;
 
@@ -24,9 +24,7 @@ class Faucet {
 
   getBalance = flow(function* () {
     try {
-      const result = yield fetch(`${host}/balance`).then((response) =>
-        response.json()
-      );
+      const result = yield get("/balance");
       if (result.balance) {
         this.balance = Number(result.balance).toFixed(5);
       }
@@ -40,19 +38,15 @@ class Faucet {
       this.error = null;
       this.transactionHash = "";
       this.isFetching = true;
-      const result = yield fetch(host, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ address, shard }),
-      }).then((response) => response.json());
-      if (result.error) {
-        toast.error(result.error);
-        this.error = result.error;
-      } else {
-        toast.success(`Successfully transferred HMC to ${address}.`);
-        this.transactionHash = result.hash;
-      }
+      const result = yield post("/", {
+        address,
+        shard,
+      });
+      toast.success(`Successfully transferred HMC to ${address}.`);
+      this.transactionHash = result.hash;
     } catch (error) {
+      this.error = error;
+      toast.error(error);
       console.warn(error);
     } finally {
       this.isFetching = false;
