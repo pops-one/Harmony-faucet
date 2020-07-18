@@ -1,9 +1,8 @@
 import React from "react";
-import { txnExplorer } from "../../constants";
 
 import "./style.scss";
 
-const TransactionResult = ({ transactionHash }) => {
+const TransactionResult = ({ transactionHash, explorerUrl }) => {
   if (!transactionHash) {
     return null;
   }
@@ -18,11 +17,11 @@ const TransactionResult = ({ transactionHash }) => {
         <span>Explorer</span>
         <span>
           <a
-            href={`${txnExplorer}${transactionHash}`}
+            href={`${explorerUrl}${transactionHash}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-            {txnExplorer}
+            {explorerUrl}
           </a>
         </span>
       </div>

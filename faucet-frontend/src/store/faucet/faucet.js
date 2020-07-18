@@ -3,26 +3,23 @@ import { toast } from "react-toastify";
 import { get, post } from "../../apis";
 class Faucet {
   isFetching = false;
-
   id = "";
-
   name = "";
-
   contractAddress = "";
-
   url = "";
-
   balance = 0;
-
+  chainId = "",
+  explorerUrl = "",
+  transactionHash = "";
   error = null;
 
-  transactionHash = "";
-
-  constructor({ id, name, contractAddress, url }) {
+  constructor({ id, name, contractAddress, url, chainId, explorerUrl }) {
     this.id = id;
     this.name = name;
     this.contractAddress = contractAddress;
     this.url = url;
+    this.chainId = chainId;
+    this.explorerUrl = explorerUrl;
   }
 
   getBalance = flow(function* () {
@@ -46,6 +43,9 @@ class Faucet {
         address,
         shard,
         token,
+        contractAddress: this.contractAddress,
+        chainId: this.chainId,
+        url: this.url
       });
       toast.success(`Successfully transferred HMC to ${address}.`);
       this.transactionHash = result.hash;
@@ -68,6 +68,8 @@ decorate(Faucet, {
   balance: observable,
   transactionHash: observable,
   contractAddress: observable,
+  explorerUrl: observable,
+  chainId: observable,
   getBalance: action,
 });
 

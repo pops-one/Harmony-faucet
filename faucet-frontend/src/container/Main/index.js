@@ -83,7 +83,10 @@ const Main = () => {
         </div>
       </form>
       <Balance balance={currentFaucet.balance} />
-      <TransactionResult transactionHash={currentFaucet.transactionHash} />
+      <TransactionResult
+        transactionHash={currentFaucet.transactionHash}
+        explorerUrl={currentFaucet.explorerUrl}
+      />
     </div>
   );
 };

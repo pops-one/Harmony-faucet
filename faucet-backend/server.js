@@ -47,12 +47,16 @@ app.get("/networks", async (req, res, next) => {
         name: "LRTN",
         contractAddress: "one1qaxw5a62tca6p9uf36kjlcq6flk2s34uxrkrld",
         url: "https://api.s0.os.hmny.io",
+        chainId: "",
+        explorerUrl: "https://explorer.testnet.harmony.one/#/tx/",
       },
       {
         id: "2",
         name: "LRTN1",
         contractAddress: "one1qaxw5a62tca6p9uf36kjlcq6flk2s34uxrkrld",
         url: "https://api.s0.os.hmny.io",
+        chainId: "",
+        explorerUrl: "https://explorer.testnet.harmony.one/#/tx/",
       },
     ],
   });
@@ -61,19 +65,18 @@ app.get("/networks", async (req, res, next) => {
 app.get("/balance", async (req, res, next) => {
   let err = false;
   let balances = [];
+
   try {
-    const initRes = await initHarmony(url);
+    const initRes = await initHarmony(req.body.url);
     const { success, hmy } = initRes;
     if (!success) {
       res.send({ success: false, initRes });
       return;
     }
 
-    const faucet = getContractInstance(hmy, FaucetJSON);
-
     const result = (
       await hmy.blockchain
-        .getBalance({ address: faucet.address })
+        .getBalance({ address: req.body.address })
         .catch((error) => {
           res.send({ success: false, error });
           err = true;
