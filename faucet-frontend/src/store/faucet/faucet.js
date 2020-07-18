@@ -50,7 +50,7 @@ class Faucet {
         this.error = result.error;
       } else {
         toast.success(`Successfully transferred HMC to ${address}.`);
-        this.transactionHash = result.transactionHash;
+        this.transactionHash = result.hash;
       }
     } catch (error) {
       console.warn(error);
