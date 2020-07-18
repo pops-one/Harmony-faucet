@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "concurrently \"cd faucet-backend && npm install\" \"cd faucet-frontend && npm install\"",
+    "start": "concurrently \"cd faucet-backend && npm run start\" \"cd faucet-frontend && npm run start\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.2.0"
+  }
 }
