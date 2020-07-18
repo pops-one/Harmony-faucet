@@ -1,18 +1,18 @@
-const express = require('express');
-const { Harmony } = require('@harmony-js/core');
-const { initHarmony } = require('./harmony');
+const express = require("express");
+const { Harmony } = require("@harmony-js/core");
+const { initHarmony } = require("./harmony");
 const {
   getContractInstance,
   getContractAddress,
   txContractMethod,
   callContractMethod,
   oneToHexAddress,
-  hexToOneAddress
-} = require('./contract');
+  hexToOneAddress,
+} = require("./contract");
 
-const bodyParser = require('body-parser');
-const FaucetJSON = require('./HarmonyFaucet.json');
-const config = require('./config');
+const bodyParser = require("body-parser");
+const FaucetJSON = require("./HarmonyFaucet.json");
+const config = require("./config");
 
 // const FaucetJSON = require('./FaucetHRC.json');
 const app = express();
@@ -30,16 +30,28 @@ const url = config.url;
 // const url = 'http://localhost:9500';
 
 // Add headers
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', '*');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
 
   // Pass to next layer of middleware
   next();
 });
 
-app.get('/balance', async (req, res, next) => {
+app.get("/networks", async (req, res, next) => {
+  res.send({
+    networks: [
+      {
+        name: "LRTN",
+        contractAddress: "one1qaxw5a62tca6p9uf36kjlcq6flk2s34uxrkrld",
+        url: "https://api.s0.os.hmny.io",
+      },
+    ],
+  });
+});
+
+app.get("/balance", async (req, res, next) => {
   let err = false;
   let balances = [];
   try {
@@ -68,19 +80,19 @@ app.get('/balance', async (req, res, next) => {
       // });
       res.send({
         success: true,
-        balance: new hmy.utils.Unit(result).asWei().toEther()
+        balance: new hmy.utils.Unit(result).asWei().toEther(),
       });
     }
     // if (!err) res.send({ success: true, balances: balances });
   } catch (error) {
     console.log(error);
     res.send({
-      error: error.message
+      error: error.message,
     });
   }
 });
 
-app.post('/', async (req, res, next) => {
+app.post("/", async (req, res, next) => {
   try {
     const initRes = await initHarmony(url);
     const { success, hmy } = initRes;
@@ -95,37 +107,37 @@ app.post('/', async (req, res, next) => {
     //prepare args for contract call
     var address = oneToHexAddress(hmy, req.body.address);
     console.log(address);
-    console.log('hex address:', address);
+    console.log("hex address:", address);
     const faucet = getContractInstance(hmy, FaucetJSON);
     //call method
     const { hash, receipt, error } = await txContractMethod(
       faucet,
-      'transferAmount',
+      "transferAmount",
       address
     );
     console.log(receipt);
-    if (receipt.status === '0x0') {
-        res.send({
-            error: "Error in sending from faucet. Please try again later"
-        });
-        return;
+    if (receipt.status === "0x0") {
+      res.send({
+        error: "Error in sending from faucet. Please try again later",
+      });
+      return;
     }
     res.send({
       receipt,
       hash,
-      error
+      error,
     });
   } catch (error) {
     console.log(error);
     res.send({
-      error: error.message
+      error: error.message,
     });
   }
   // await balance(req, res)
 });
 
-app.get('/', (req, res) => {
-  res.send('Hello from App Engine!');
+app.get("/", (req, res) => {
+  res.send("Hello from App Engine!");
 });
 
 // Listen to the App Engine-specified port, or 8080 otherwise

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { toast } from "react-toastify";
+import { observer } from "mobx-react";
 import "react-toastify/dist/ReactToastify.css";
 import RadioButton from "../../component/Radio";
 import Balance from "../../component/Balance";
 import TransactionResult from "../../component/TransactionResult";
+import { StoreContext } from "../../index";
 
 // import RecentClaims from "../RecentClaims";
 
@@ -21,6 +23,9 @@ const Main = () => {
   const [shard, setShard] = useState("0");
   const [isFetching, setIsFetching] = useState(false);
   const [transactionHash, setTransactionHash] = useState("");
+  const {
+    faucetStore: { currentFaucet },
+  } = useContext(StoreContext);
 
   const onShardChange = ({ target }) => setShard(target.value);
 
@@ -57,10 +62,12 @@ const Main = () => {
   return (
     <div className="hm-main">
       {/* <RecentClaims /> */}
-      <h1 className="header-text">HARMONY ONE FAUCET FOR LRTN</h1>
+      <h1 className="header-text">
+        HARMONY ONE FAUCET FOR {currentFaucet.name}
+      </h1>
       <h3 className="sub-header-text">5000 ONE token is sent at a time</h3>
       <h3 className="sub-header-text">
-        Contract address: one1qaxw5a62tca6p9uf36kjlcq6flk2s34uxrkrld
+        Contract address: {currentFaucet.contractAddress}
       </h3>
       <form onSubmit={sendToAddress} className="hm-form">
         <RadioButton
@@ -96,4 +103,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default observer(Main);
