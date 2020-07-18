@@ -43,7 +43,14 @@ app.get("/networks", async (req, res, next) => {
   res.send({
     networks: [
       {
+        id: "1",
         name: "LRTN",
+        contractAddress: "one1qaxw5a62tca6p9uf36kjlcq6flk2s34uxrkrld",
+        url: "https://api.s0.os.hmny.io",
+      },
+      {
+        id: "2",
+        name: "LRTN1",
         contractAddress: "one1qaxw5a62tca6p9uf36kjlcq6flk2s34uxrkrld",
         url: "https://api.s0.os.hmny.io",
       },

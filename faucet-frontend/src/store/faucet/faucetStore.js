@@ -11,6 +11,14 @@ class FaucetStore {
 
   currentFaucet = {};
 
+  setCurrentFaucet(faucetId) {
+    const newFaucet = this.faucets.find((f) => f.id === faucetId);
+    if (!newFaucet) {
+      return;
+    }
+    this.currentFaucet = newFaucet;
+  }
+
   fetch = flow(function* () {
     try {
       this.isFetching = true;
@@ -33,6 +41,8 @@ decorate(FaucetStore, {
   isFetching: observable,
   isFetched: observable,
   faucets: observable,
+  currentFaucet: observable,
+  setCurrentFaucet: action,
   fetch: action,
 });
 

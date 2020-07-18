@@ -4,6 +4,8 @@ import { get, post } from "../../apis";
 class Faucet {
   isFetching = false;
 
+  id = "";
+
   name = "";
 
   contractAddress = "";
@@ -16,7 +18,8 @@ class Faucet {
 
   transactionHash = "";
 
-  constructor({ name, contractAddress, url }) {
+  constructor({ id, name, contractAddress, url }) {
+    this.id = id;
     this.name = name;
     this.contractAddress = contractAddress;
     this.url = url;
@@ -56,6 +59,7 @@ class Faucet {
 
 decorate(Faucet, {
   isFetching: observable,
+  id: observable,
   name: observable,
   error: observable,
   url: observable,
