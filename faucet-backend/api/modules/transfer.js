@@ -1,5 +1,5 @@
 import { initHarmony } from "../utils/harmony.js";
-import config from "../config/config.js";
+import config from "../../config/config.js";
 
 const { gasLimit, gasPrice } = config;
 

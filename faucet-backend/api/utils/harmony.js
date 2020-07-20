@@ -1,7 +1,6 @@
 import HarmonyCore from "@harmony-js/core";
 import HarmonyUtils from "@harmony-js/utils";
-import config from "../config/config.js";
-import { keystore } from "../config/keystore.js";
+import config from "../../config/config.js";
 
 /********************************
 Config

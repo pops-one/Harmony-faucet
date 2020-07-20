@@ -1,4 +1,4 @@
-import config from "../config/config.js";
+import config from "../../config/config.js";
 
 const getNetworks = (req, res, next) => {
   if (config.networks) {
