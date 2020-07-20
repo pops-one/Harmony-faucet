@@ -1,50 +1,41 @@
-const { Harmony } = require('@harmony-js/core');
-// import or require settings
-const { ChainType } = require('@harmony-js/utils');
-// import or require simutlated keystore (optional)
-const { importKey } = require('./simulated-keystore');
+import HarmonyCore from "@harmony-js/core";
+import HarmonyUtils from "@harmony-js/utils";
+import config from "../config/config.js";
+import { keystore } from "../config/keystore.js";
+
 /********************************
 Config
 ********************************/
-const config = require('./config');
 const { net, privateKey, mnemonic } = config;
+
 /********************************
 Harmony Setup
 ********************************/
-const createHmy = (url, shardID) =>
-  new Harmony(url, {
-    chainType: ChainType.Harmony,
-    chainId: net
+const createHmy = (url, chainId) =>
+  new HarmonyCore.Harmony(url, {
+    chainType: HarmonyUtils.ChainType.Harmony,
+    chainId: chainId || net,
   });
 async function setSharding(hmy) {
   const res = await hmy.blockchain.getShardingStructure();
   hmy.shardingStructures(res.result);
 }
+
 /********************************
 Wallet Setup
 ********************************/
 function setDefaultWallets(hmy) {
-  // add privateKey to wallet
-  // localnet: one103q7qe5t2505lypvltkqtddaef5tzfxwsse4z7
-  // testnet: one1w7lu05adqfhv8slx0aq8lgzglk5vrnwvf5f740
-  console.log(privateKey);
-  console.log(mnemonic);
   const alice = hmy.wallet.addByPrivateKey(privateKey);
   hmy.wallet.setSigner(alice.address);
-  //one1a2rhuaqjcvfu69met9sque2l3w5v9z6qcdcz65
   const bob = hmy.wallet.addByMnemonic(mnemonic);
-  console.log('alice', alice.bech32Address);
-  console.log('bob', bob.bech32Address);
 }
 
-exports.initHarmony = async (url, from) => {
+export const initHarmony = async (url, chainId, from) => {
   //prepare Harmony instance
-  const hmy = createHmy(url);
-
+  const hmy = createHmy(url, chainId);
   await setSharding(hmy);
-
   if (from) {
-    const pkey = importKey(from);
+    const pkey = keystore(from);
     if (pkey) {
       hmy.wallet.addByPrivateKey(pkey);
       hmy.wallet.setSigner(hmy.crypto.getAddress(from).basicHex);
@@ -54,5 +45,7 @@ exports.initHarmony = async (url, from) => {
   } else {
     setDefaultWallets(hmy);
   }
-  return { success: true, hmy };
+  return hmy;
 };
+
+export default initHarmony;

@@ -8,8 +8,9 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
+      "runtimeArgs": ["--experimental-modules"],
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/server.js"
+      "program": "${workspaceFolder}/faucet-backend/index.js"
     }
   ]
 }
