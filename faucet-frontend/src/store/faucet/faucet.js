@@ -8,8 +8,8 @@ class Faucet {
   contractAddress = "";
   url = "";
   balance = 0;
-  chainId = "",
-  explorerUrl = "",
+  chainId = "";
+  explorerUrl = "";
   transactionHash = "";
   error = null;
 
@@ -24,7 +24,9 @@ class Faucet {
 
   getBalance = flow(function* () {
     try {
-      const result = yield get("/balance");
+      const result = yield get(
+        `/balance?url=${this.url}&address=${this.contractAddress}&chainId=${this.chainId}`
+      );
       if (result.balance) {
         this.balance = Number(result.balance).toFixed(5);
       }
@@ -34,18 +36,17 @@ class Faucet {
   });
 
   sendToAddress = flow(function* (address, shard, token) {
-    console.log(token);
     try {
       this.error = null;
       this.transactionHash = "";
       this.isFetching = true;
-      const result = yield post("/", {
+      const result = yield post("/transfer", {
         address,
         shard,
         token,
         contractAddress: this.contractAddress,
         chainId: this.chainId,
-        url: this.url
+        url: this.url,
       });
       toast.success(`Successfully transferred HMC to ${address}.`);
       this.transactionHash = result.hash;
