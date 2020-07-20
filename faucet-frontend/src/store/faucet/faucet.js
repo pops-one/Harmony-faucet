@@ -25,7 +25,7 @@ class Faucet {
   getBalance = flow(function* () {
     try {
       const result = yield get(
-        `/balance?url=${this.url}&address=${this.contractAddress}&chainId=${this.chainId}`
+        `/balance?networkId=${this.id}&address=${this.contractAddress}`
       );
       if (result.balance) {
         this.balance = Number(result.balance).toFixed(5);
@@ -44,9 +44,7 @@ class Faucet {
         address,
         shard,
         token,
-        contractAddress: this.contractAddress,
-        chainId: this.chainId,
-        url: this.url,
+        networkId: this.id,
       });
       toast.success(`Successfully transferred HMC to ${address}.`);
       this.transactionHash = result.hash;

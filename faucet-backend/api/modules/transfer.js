@@ -1,17 +1,17 @@
 import { initHarmony } from "../utils/harmony.js";
 import config from "../config/config.js";
 
-const { net, privateKey, mnemonic, GAS_LIMIT } = config;
+const { gasLimit, gasPrice } = config;
 
 const transferBalance = async (req, res, next) => {
-  const { address, shard, token, contractAddress, chainId, url } = req.body;
+  const { address, shard, token } = req.body;
   try {
-    const hmy = await initHarmony(url, chainId, contractAddress);
+    const hmy = await initHarmony(networkId);
     const txn = hmy.transactions.newTx({
       to: address,
       value: new Unit(1).asOne().toWei(),
       // gas limit, you can use string
-      gasLimit: GAS_LIMIT,
+      gasLimit: gasLimit,
       // send token from shardID
       shardID: shard,
       // send token to toShardID

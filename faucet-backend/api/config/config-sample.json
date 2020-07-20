@@ -1,0 +1,28 @@
+{
+  "networks": [
+    {
+      "id": "1",
+      "network": 0,
+      "chainId": "2",
+      "name": "LRTN 1",
+      "url": "https://api.s0.b.hmny.io",
+      "explorerUrl": "https://explorer.testnet.harmony.one/#/tx/",
+      "contractAddress": "contract address",
+      "privateKey": "private key",
+      "mnemonic": "mnemonic"
+    },
+    {
+      "id": "2",
+      "network": 0,
+      "chainId": "2",
+      "name": "LRTN 1",
+      "url": "https://api.s0.b.hmny.io",
+      "explorerUrl": "https://explorer.testnet.harmony.one/#/tx/",
+      "contractAddress": "contract address",
+      "privateKey": "private key",
+      "mnemonic": "mnemonic"
+    }
+  ],
+  "gasPrice": 1,
+  "gasLimit": 3321900
+}

@@ -1,24 +1,20 @@
+import config from "../config/config.js";
+
 const getNetworks = (req, res, next) => {
-  res.json({
-    networks: [
-      {
-        id: "1",
-        name: "LRTN",
-        contractAddress: "one1qaxw5a62tca6p9uf36kjlcq6flk2s34uxrkrld",
-        url: "https://api.s0.b.hmny.io",
-        chainId: "2",
-        explorerUrl: "https://explorer.testnet.harmony.one/#/tx/",
-      },
-      {
-        id: "2",
-        name: "LRTN1",
-        contractAddress: "one1qaxw5a62tca6p9uf36kjlcq6flk2s34uxrkrld",
-        url: "https://api.s0.b.hmny.io",
-        chainId: "2",
-        explorerUrl: "https://explorer.testnet.harmony.one/#/tx/",
-      },
-    ],
-  });
+  if (config.networks) {
+    res.json({
+      networks: config.networks.map(
+        ({ id, name, contractAddress, url, chainId, explorerUrl }) => ({
+          id,
+          name,
+          explorerUrl,
+          contractAddress,
+        })
+      ),
+    });
+  } else {
+    next(new Error("Networks not found."));
+  }
 };
 
 export default getNetworks;
