@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --experimental-modules=true index.js",
+    "start": "nodemon --experimental-modules=true index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -19,5 +19,8 @@
     "express": "^4.17.1",
     "truffle": "^5.1.2",
     "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
