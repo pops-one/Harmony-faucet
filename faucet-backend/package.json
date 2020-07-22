@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@harmony-js/core": "^0.1.36",
+    "@harmony-js/crypto": "^0.1.48",
     "@openzeppelin/contracts": "^2.5.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",

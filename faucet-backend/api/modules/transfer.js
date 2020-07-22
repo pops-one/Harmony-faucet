@@ -1,7 +1,10 @@
 import request from "request";
+import crypto from "@harmony-js/crypto";
+
 import { initHarmony } from "../utils/harmony.js";
-import config from "../../config/config.js";
+import { config, artifact } from "../../config/config.js";
 import { captchaUrl, captchaSecret } from "../../constants.js";
+import getContractInstance from "../utils/contract.js";
 
 const { gasLimit, gasPrice } = config;
 
@@ -14,9 +17,21 @@ const transferBalance = async (req, res, next) => {
       try {
         if (error) throw error;
         body = JSON.parse(body);
-        if (body.success && body.score < 0.5) {
+        if (body.success && body.score > 0.5) {
           // transaction stuffs here
-          res.json({ success: true });
+          const hmy = await initHarmony(networkId);
+          const contract = getContractInstance(hmy, networkId, artifact);
+          let txinfo = await contract.methods
+            .transferAmount(crypto.fromBech32(address))
+            .send({
+              gasLimit: gasLimit,
+              gasPrice: new hmy.utils.Unit(gasPrice).asGwei().toWei(),
+              to: contract.options.address,
+            });
+          if (txinfo.transaction.receipt.status !== "0x1") {
+            throw new Error("Transfer token failed");
+          }
+          res.json({ hash: txinfo.transaction.id });
         } else {
           throw new Error("Captcha verification failed.");
         }
@@ -25,24 +40,6 @@ const transferBalance = async (req, res, next) => {
       }
     }
   );
-
-  // const hmy = await initHarmony(networkId);
-  // const txn = hmy.transactions.newTx({
-  //   to: address,
-  //   value: new Unit(1).asOne().toWei(),
-  //   // gas limit, you can use string
-  //   gasLimit: gasLimit,
-  //   // send token from shardID
-  //   shardID: shard,
-  //   // send token to toShardID
-  //   toShardID: shard,
-  //   // gas Price, you can use Unit class, and use Gwei, then remember to use toWei(), which will be transformed to BN
-  //   gasPrice: new hmy.utils.Unit(gasPrice).asGwei().toWei(),
-  // });
-
-  // // sign the transaction use wallet;
-  // const signedTxn = await hmy.wallet.signTransaction(txn);
-  // const txnHash = await hmy.blockchain.sendTransaction(signedTxn);
 };
 
 export default transferBalance;

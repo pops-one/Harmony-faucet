@@ -21,6 +21,11 @@ async function setSharding(hmy) {
   hmy.shardingStructures(res.result);
 }
 
+async function setWallet(hmy, privateKey) {
+  const admin = hmy.wallet.addByPrivateKey(privateKey);
+  hmy.wallet.setSigner(admin.address);
+}
+
 export const initHarmony = async (networkId) => {
   const currentNetwork = networks.find((n) => n.id === networkId);
   if (!currentNetwork) {
@@ -33,8 +38,7 @@ export const initHarmony = async (networkId) => {
   const hmy = createHmy(url, chainId);
   await setSharding(hmy);
 
-  hmy.wallet.addByPrivateKey(privateKey);
-  hmy.wallet.setSigner(hmy.crypto.getAddress(contractAddress).basicHex);
+  setWallet(hmy, privateKey);
 
   return hmy;
 };
