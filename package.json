@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "concurrently \"cd faucet-backend && npm install\" \"cd faucet-frontend && npm install\"",
+    "build:contract": "cd faucet-contract && npm run build",
+    "build:frontend": "cd faucet-frontend && npm run build",
+    "build": "concurrently \"npm run build:contract\" \"npm run build:frontend\"",
+    "postinstall": "concurrently \"cd faucet-backend && npm install\" \"cd faucet-frontend && npm install\"  \"cd faucet-contract && npm install\"",
     "start": "concurrently \"cd faucet-backend && npm run start\" \"cd faucet-frontend && npm run start\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
