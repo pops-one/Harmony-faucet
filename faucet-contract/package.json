@@ -9,7 +9,7 @@
     "build": "npm run deploy && npm run copy"
   },
   "dependencies": {
-    "@harmony-js/core": "^0.1.36",
+    "@harmony-js/core": "^0.1.49",
     "@openzeppelin/contracts": "^2.5.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
