@@ -8,23 +8,18 @@ import Balance from "../../component/Balance";
 import FaucetInfo from "../../component/FaucetInfo";
 import TransactionResult from "../../component/TransactionResult";
 import { StoreContext } from "../../index";
-import Dropdown from "../../component/Dropdown";
 
 const Main = () => {
   const [address, setAddress] = useState("");
   const [shard, setShard] = useState("0");
   const { executeRecaptcha } = useGoogleReCaptcha();
   const { faucetStore } = useContext(StoreContext);
-  const { currentFaucet, faucets } = faucetStore;
+  const { currentFaucet } = faucetStore;
   useEffect(() => {
     if (currentFaucet.getBalance) {
       currentFaucet.getBalance();
     }
   }, [currentFaucet]);
-
-  const onFaucetChange = ({ target }) => {
-    faucetStore.setCurrentFaucet(target.value);
-  };
 
   const onShardChange = ({ target }) => setShard(target.value);
 
@@ -45,11 +40,6 @@ const Main = () => {
 
   return (
     <div className="hm-main">
-      <Dropdown
-        list={faucets.map((f) => ({ label: f.name, value: f.id }))}
-        selected={currentFaucet.id}
-        onChange={onFaucetChange}
-      />
       <FaucetInfo
         name={currentFaucet.name}
         contractAddress={currentFaucet.contractAddress}

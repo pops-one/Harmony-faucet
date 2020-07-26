@@ -80,7 +80,7 @@
         top: 3px;
         cursor: pointer;
         &.disabled {
-          cursor: not-allowed;
+          cursor: progress;
           background-color: #888888;
         }
       }

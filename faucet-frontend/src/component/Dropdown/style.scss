@@ -3,13 +3,22 @@
   align-items: center;
   justify-content: center;
   padding: 16px;
-  label {
-    margin-right: 8px;
+  .dropdown {
+    background: linear-gradient(90deg, #5fc4d8 0%, #82e8c9 100%);
+    padding: 2px;
+    border-radius: 20px;
   }
   select {
-    min-width: 150px;
-    max-width: 150px;
+    max-width: 200px;
     outline: none;
-    height: 30px;
+    border: none;
+    cursor: pointer;
+    text-align-last: center;
+    height: 35px;
+    padding: 0 15px;
+    background: #f4f8fa;
+    border-radius: 20px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
   }
 }
