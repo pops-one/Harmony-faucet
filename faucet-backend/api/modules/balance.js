@@ -11,7 +11,9 @@ const getBalance = async (req, res, next) => {
       });
     }
   } catch (error) {
-    next(error);
+    res.status(500).json({
+      message: error.message,
+    });
   }
 };
 

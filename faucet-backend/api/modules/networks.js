@@ -4,8 +4,9 @@ const getNetworks = (req, res, next) => {
   if (config.networks) {
     res.json({
       networks: config.networks.map(
-        ({ id, name, contractAddress, url, chainId, explorerUrl }) => ({
+        ({ id, name, contractAddress, url, explorerUrl }) => ({
           id,
+          url,
           name,
           explorerUrl,
           contractAddress,
@@ -13,7 +14,9 @@ const getNetworks = (req, res, next) => {
       ),
     });
   } else {
-    next(new Error("Networks not found."));
+    res.status(404).json({
+      message: "Network not found",
+    });
   }
 };
 

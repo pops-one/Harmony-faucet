@@ -18,8 +18,8 @@ const apiRequest = async ({ url, method, data }) => {
   });
 
   const result = await response.json();
-  if (result.error) {
-    throw result.error;
+  if (!response.ok) {
+    throw result.message;
   }
   return result;
 };

@@ -36,7 +36,9 @@ const transferBalance = async (req, res, next) => {
           throw new Error("Captcha verification failed.");
         }
       } catch (error) {
-        next(error);
+        res.status(500).json({
+          message: error.message,
+        });
       }
     }
   );
