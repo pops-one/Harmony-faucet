@@ -49,6 +49,10 @@ class Faucet {
   });
 
   sendToAddress = flow(function* (address, shard, token) {
+    if (this.amountPerRequest > this.balance) {
+      toast.error("Insufficient balance in faucet.");
+      return;
+    }
     try {
       this.error = null;
       this.transactionHash = "";
