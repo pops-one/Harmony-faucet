@@ -5,7 +5,7 @@
   "dependencies": {
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.14.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-google-recaptcha-v3": "^1.5.2",

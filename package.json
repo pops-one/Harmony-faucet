@@ -4,17 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:contract": "cd faucet-contract && npm run build",
-    "build:frontend": "cd faucet-frontend && npm run build",
-    "build": "concurrently \"npm run build:contract\" \"npm run build:frontend\"",
+    "v": "node -v"
+    "copy": "cd faucet-contract && npm run copy",
+    "build": "cd faucet-frontend && npm run build",
     "postinstall": "concurrently \"cd faucet-backend && npm install\" \"cd faucet-frontend && npm install\"  \"cd faucet-contract && npm install\"",
     "start": "concurrently \"cd faucet-backend && npm run start\" \"cd faucet-frontend && npm run start\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "concurrently": "^5.2.0"
+    "concurrently": "^5.2.0",
+    "node": "12.13.1"
   }
 }
