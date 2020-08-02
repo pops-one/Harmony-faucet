@@ -4,9 +4,7 @@
   "description": "Harmony sample ERC20 deploy",
   "main": "truffle.js",
   "scripts": {
-    "deploy": "truffle migrate --network testnet --reset",
-    "copy": "cp ./build/contracts/HarmonyFaucet.json ../faucet-backend/config",
-    "build": "npm run deploy && npm run copy"
+    "copy": "cp ./build/contracts/HarmonyFaucet.json ../faucet-backend/config"
   },
   "dependencies": {
     "@harmony-js/core": "^0.1.49",
