@@ -11,9 +11,6 @@ const App = () => {
     faucetStore.fetch();
   }, []);
 
-  if (faucetStore.isFetching) {
-    return <div>Loading</div>;
-  }
   return (
     <div className="hm-wrapper">
       <Header />
