@@ -1,19 +1,20 @@
 import React, { useContext } from "react";
 import { StoreContext } from "../../index";
 import Dropdown from "../Dropdown";
+import { observer } from "mobx-react";
 
 const Header = () => {
   const { faucetStore } = useContext(StoreContext);
   const { currentFaucet, faucets } = faucetStore;
 
-  const onFaucetChange = ({ target }) => {
-    faucetStore.setCurrentFaucet(target.value);
+  const onFaucetChange = (option) => {
+    faucetStore.setCurrentFaucet(option.value);
   };
 
   return (
     <div className="hm-header">
       <Dropdown
-        list={faucets.map((f) => ({ label: f.name, value: f.id }))}
+        list={faucets.map((f) => ({ label: f.name, value: f.id, url: f.url }))}
         selected={faucetStore.currentFaucet.id}
         onChange={onFaucetChange}
       />
@@ -24,4 +25,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default observer(Header);

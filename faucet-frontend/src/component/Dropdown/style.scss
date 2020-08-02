@@ -3,22 +3,31 @@
   align-items: center;
   justify-content: center;
   padding: 16px;
+  position: relative;
   .dropdown {
     background: linear-gradient(90deg, #5fc4d8 0%, #82e8c9 100%);
-    padding: 2px;
+    padding: 8px 16px;
+    cursor: pointer;
     border-radius: 20px;
   }
-  select {
-    max-width: 200px;
-    outline: none;
-    border: none;
+  .dropdown-options {
+    position: absolute;
+    height: 0;
+    overflow: hidden;
     cursor: pointer;
-    text-align-last: center;
-    height: 35px;
-    padding: 0 15px;
-    background: #f4f8fa;
-    border-radius: 20px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+    top: 75%;
+    left: 10%;
+    &.is-open {
+      height: auto;
+      padding: 8px 16px;
+      background: #eaeaea;
+      border-radius: 16px;
+      border: solid 1px #ccc;
+      box-shadow: 1px 1px 2px 2px #fafafa;
+    }
+    .dropdown-option {
+      padding: 8px;
+      cursor: pointer;
+    }
   }
 }
