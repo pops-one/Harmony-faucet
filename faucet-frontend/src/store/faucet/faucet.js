@@ -1,6 +1,7 @@
 import { observable, action, flow, decorate } from "mobx";
 import { toast } from "react-toastify";
 import { get, post } from "../../apis";
+import { observer } from "mobx-react";
 class Faucet {
   isFetching = false;
   id = "";
@@ -11,6 +12,7 @@ class Faucet {
   chainId = "";
   explorerUrl = "";
   transactionHash = "";
+  amountPerRequest = 0;
   error = null;
 
   constructor({ id, name, contractAddress, url, chainId, explorerUrl }) {
@@ -29,6 +31,17 @@ class Faucet {
       );
       if (result.balance) {
         this.balance = Number(result.balance).toFixed(5);
+      }
+    } catch (error) {
+      console.warn(error);
+    }
+  });
+
+  getSendAmount = flow(function* () {
+    try {
+      const result = yield get(`/sendamount?networkId=${this.id}`);
+      if (result.sendAmount) {
+        this.amountPerRequest = result.sendAmount;
       }
     } catch (error) {
       console.warn(error);
@@ -65,11 +78,13 @@ decorate(Faucet, {
   error: observable,
   url: observable,
   balance: observable,
+  amountPerRequest: observable,
   transactionHash: observable,
   contractAddress: observable,
   explorerUrl: observable,
   chainId: observable,
   getBalance: action,
+  getSendAmount: action,
 });
 
 export default Faucet;

@@ -18,6 +18,7 @@ const Main = () => {
   useEffect(() => {
     if (currentFaucet.getBalance) {
       currentFaucet.getBalance();
+      currentFaucet.getSendAmount();
     }
   }, [currentFaucet]);
 
@@ -43,6 +44,7 @@ const Main = () => {
       <FaucetInfo
         name={currentFaucet.name}
         contractAddress={currentFaucet.contractAddress}
+        amountPerRequest={currentFaucet.amountPerRequest}
       />
       <form onSubmit={sendToAddress} className="hm-form">
         <RadioButton
