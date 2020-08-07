@@ -1,12 +1,11 @@
-import { initHarmony } from "../utils/harmony.js";
-import { config, artifact } from "../../config/config.js";
-import getContractInstance from "../utils/contract.js";
+import { initHarmony } from '../utils/harmony.js';
+import { config, artifact } from '../../config/config.js';
+import getContractInstance from '../utils/contract.js';
 
 const { gasLimit, gasPrice } = config;
 
 const amountPerRequest = async (req, res, next) => {
   const { networkId } = req.query;
-  console.log(networkId);
   try {
     const hmy = await initHarmony(networkId);
     const contract = getContractInstance(hmy, networkId, artifact);
