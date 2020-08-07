@@ -9,6 +9,7 @@
   "dependencies": {
     "@harmony-js/core": "^0.1.49",
     "@openzeppelin/cli": "^2.8.2",
+    "@openzeppelin/contracts": "^3.1.0",
     "@openzeppelin/contracts-ethereum-package": "^3.0.0",
     "@openzeppelin/upgrades": "^2.8.0",
     "dotenv": "^8.2.0",

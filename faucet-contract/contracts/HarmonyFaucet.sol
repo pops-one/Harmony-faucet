@@ -1,9 +1,8 @@
 pragma solidity ^0.6.0;
 
-import "@openzeppelin/contracts-ethereum-package/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts-ethereum-package/contracts/Initializable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract HarmonyFaucet  is OwnableUpgradeSafe {
+contract HarmonyFaucet  is Ownable {
 
     //Variables
 	mapping(address => uint256) public requestedAddressMapping;
@@ -16,15 +15,15 @@ contract HarmonyFaucet  is OwnableUpgradeSafe {
     event EtherReceived(address Sender, uint amount);
     event Log(string msg);
 
-    function initialize() public initializer {
+    constructor() public {
         sendAmount = 5000000000000000000000;
-        blockHeight = 17280;
+        blockHeight = 17281;
     }
 
-    function transferAmount(address receiverAddress) public {
+    function transferAmount(address receiverAddress) public onlyOwner {
         uint256 currentBlock = block.number;
         require(requestedAddressMapping[receiverAddress] == 0 || currentBlock - requestedAddressMapping[receiverAddress] >= blockHeight,
-                "Address has been funded within the last hour");
+                "Address has been funded within the last day");
         require(address(this).balance > sendAmount, "Not enough funds in faucet");
         requestedAddressMapping[receiverAddress] = currentBlock;
         address payable receiver = address(uint160(receiverAddress));

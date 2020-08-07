@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "v": "node -v"
+    "v": "node -v",
     "copy": "cd faucet-contract && npm run copy",
     "build": "cd faucet-frontend && npm run build",
     "postinstall": "concurrently \"cd faucet-backend && npm install\" \"cd faucet-frontend && npm install\"  \"cd faucet-contract && npm install\"",

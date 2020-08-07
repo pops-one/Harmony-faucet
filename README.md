@@ -11,7 +11,9 @@ https://onefaucet.ibriz.ai
 
 ### Contract
 
-Add `.env` file corresponding to `.env.sample` in `faucet-contract` folder
+* Add `.env` file corresponding to `.env.sample` in `faucet-contract` folder
+
+* Add the network in which the contract is to be deployed
 
 #### Sample Network config
 
