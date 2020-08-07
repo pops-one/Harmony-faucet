@@ -18,7 +18,7 @@ const Header = () => {
         selected={faucetStore.currentFaucet.id}
         onChange={onFaucetChange}
       />
-      <a href="https://harmony.one/">
+      <a href="https://harmony.one/" target="_blank" rel="noopener noreferrer">
         <img className="hm-logo" src="/images/harmony-logo.svg" alt="" />
       </a>
     </div>

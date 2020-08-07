@@ -31,11 +31,15 @@ const validateTransaction = async (address, hmy, contract) => {
     gasPrice: new hmy.utils.Unit(gasPrice).asGwei().toWei(),
     to: contract.options.address,
   });
+  let currentBlockNumber = await hmy.blockchain.getBlockNumber();
+  console.log(Number(blockHeight), Number(requestedBlockNumber), Number(currentBlockNumber.result));
+  let block_height = Number(blockHeight);
+  let requested_block_number = Number(requestedBlockNumber);
+  let current_block_number = Number(currentBlockNumber.result);
 
-  let currentBlockNumber = await hmy.blockchaind.getBlockNumber();
-  if (blockHeight < currentBlockNumber - requestedBlockNumber) {
+  if ((block_height + requested_block_number) > current_block_number) {
     let time = getTime(
-      (blockHeight + requestedBlockNumber - currentBlockNumber) * 5
+      (block_height + requested_block_number - current_block_number) * 5
     );
     throw new Error(
       `Please try again after ${time}. You have been funded recently.`
@@ -56,7 +60,7 @@ const transferBalance = async (req, res, next) => {
           // transaction stuffs here
           const hmy = await initHarmony(networkId);
           const contract = getContractInstance(hmy, networkId, artifact);
-          validateTransaction(address, hmy, contract);
+          await validateTransaction(address, hmy, contract);
           let txinfo = await contract.methods
             .transferAmount(crypto.fromBech32(address))
             .send({
@@ -65,7 +69,7 @@ const transferBalance = async (req, res, next) => {
               to: contract.options.address,
             });
           if (txinfo.transaction.receipt.status !== '0x1') {
-            throw new Error('Transfer token failed');
+            throw new Error('Transfer token failed. Please try again later.');
           }
           res.json({ hash: txinfo.transaction.id });
         } else {

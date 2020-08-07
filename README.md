@@ -39,20 +39,13 @@ Enter the required environment variables in the `.env` file. For the above confi
 #### To deploy contract
 
 ``` bash
-$ npx oz deploy
+$ npx oz deploy        
 Nothing to compile, all contracts are up to date.
-? Choose the kind of deployment upgradeable
+? Choose the kind of deployment regular
 ? Pick a network lrtn_testnet
 ? Pick a contract to deploy HarmonyFaucet
-✓ Added contract HarmonyFaucet
-✓ Contract HarmonyFaucet deployed
-All implementations have been deployed
-? Call a function to initialize the instance after creating it? Yes
-? Select which function * initialize()
-✓ Setting everything up to create contract instances
-✓ Instance created at 0xcA4D0d04493ae0764a50aD72017D3b19b26C1496
-To upgrade this instance run 'oz upgrade'
-0xcA4D0d04493ae0764a50aD72017D3b19b26C1496
+✓ Deployed instance of HarmonyFaucet
+0x4B203bB02fDBd702610b4d2564beAd3af82bd7d2
 ```
 
 * Convert the obtained address to bech32 format.

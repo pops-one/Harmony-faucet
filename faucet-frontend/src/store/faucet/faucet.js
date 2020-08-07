@@ -54,6 +54,7 @@ class Faucet {
       return;
     }
     try {
+      console.log(this.balance);
       this.error = null;
       this.transactionHash = "";
       this.isFetching = true;
@@ -63,7 +64,7 @@ class Faucet {
         token,
         networkId: this.id,
       });
-      toast.success(`Successfully transferred HMC to ${address}.`);
+      toast.success(`Successfully transferred ${this.amountPerRequest} ONE to ${address}.`);
       this.transactionHash = result.hash;
     } catch (error) {
       this.error = error;
