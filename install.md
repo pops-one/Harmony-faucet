@@ -151,8 +151,11 @@
 
 	c) Setup ngnix and certbot.
 	`sudo apt-get install nginx -y`
+	
 	`sudo mkdir -p /var/www/faucet.pops.one/`
+	
 	`sudo chown -R $USER:$USER /var/www/faucet.pops.one/`
+	
 	`sudo chmod -R 755 /var/www/faucet.pops.one`
 
 	Copy all the contents of the faucent-frontend/build folder to the html folder
