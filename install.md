@@ -63,7 +63,8 @@
 	    	
 
 	c) Install openzeppelin
-	`npm i @openzeppelin/cli`
+	`npm i @openzeppelin/cli -g`
+	
 	`npx oz init`
 
 	c) Go to Harmony-faucet folder and run the following command to install all dependencies
