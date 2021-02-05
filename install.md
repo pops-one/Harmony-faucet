@@ -152,7 +152,7 @@
 
 	c) Setup ngnix and certbot.
 	`sudo apt-get install nginx -y`
-	
+
 	`sudo mkdir -p /var/www/faucet.pops.one/`
 	
 	`sudo chown -R $USER:$USER /var/www/faucet.pops.one/`
@@ -195,6 +195,7 @@
 
 	i) Install certbot
 	`sudo apt-get install certbot -y`
+	`sudo apt-get install python-certbot-nginx -y`
 	`sudo certbot --nginx`
 
 	After going through the prompts and accepting Option 3) redirect all http traffic to https the site should be accessible
