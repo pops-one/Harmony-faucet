@@ -129,13 +129,15 @@
 
 	This will copy the HarmonyFaucet.json from faucet-contract/build/contracts folder to faucet-backend/config
 
-	d) Open a tmux session and start the backend service
-	`tmux new-session -s faucet-backend`
-	`npm start`
-	You should see a message - Server listening on port 5000...
-	press `CTRL-B` and then `d` to detach from the tmux session
-
-	Note: Not an ideal way to run back-end. Was facing compatibility issues with pm2 (node proces manager to run as service). Hence, temporarily running in tmux
+	d) Run the backend process as follows
+	`pm2 start npm --name "faucet-backend" -- start`
+	`pm2 save`
+	`pm2 startup`
+	
+	To view the running processes
+	`pm2 status`
+	To view the logs for backend process, use
+	`pm2 logs faucet-backend`
 
 	6) Frontend
 	Navigate to faucet-frontend
