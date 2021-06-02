@@ -45,7 +45,7 @@ Nothing to compile, all contracts are up to date.
 ? Pick a network lrtn_testnet
 ? Pick a contract to deploy HarmonyFaucet
 ✓ Deployed instance of HarmonyFaucet
-0x4B203bB02fDBd702610b4d2564beAd3af82bd7d2
+one18zf6feapd6sgae6saz4m6xs65yxkps9z7qcv77
 ```
 
 * Convert the obtained address to bech32 format.
