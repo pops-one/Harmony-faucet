@@ -81,13 +81,13 @@
 	    ? Pick a network lrtn_testnet
 	    ? Pick a contract to deploy HarmonyFaucet
 	    ✓ Deployed instance of HarmonyFaucet
-	    0xB7bF95f851398732310B1412df2075C517F7a5e7
+	    0x3893a4E7a16eA08Ee750e8AbBD1A1aA10D60c0A2
 
 	Make a note of the contract address
 	Also, find the corresponding bech32 wallet format (e.g. one.....) of the contract by using 
 	`./hmy utility addr-to-bech32 CONTRACT_ADDRESS_IN_0x_FORMAT`
 	Sample output
-	`one1k7let7z38xrnyvgtzsfd7gr4c5tl0f08ycysxh`
+	`one18zf6feapd6sgae6saz4m6xs65yxkps9z7qcv77`
 
 	4) Domain configurations.
 	a) Configure a sub-domain which will be used for the faucet.
@@ -211,7 +211,7 @@ e.g. To change the default amount to say 10,1100 (Enter as 10100e18)
 Navigate to faucet-contract folder
 `npx oz send-tx`
 ? Pick a network lrtn_testnet
-? Pick an instance HarmonyFaucet at 0x4B203bB02fDBd702610b4d2564beAd3af82bd7d2
+? Pick an instance HarmonyFaucet at 0x3893a4E7a16eA08Ee750e8AbBD1A1aA10D60c0A2
 ? Select which function setRate(_sendAmount: uint256)
 ? _sendAmount: uint256: 10100e18
 ✓ Transaction successful. Transaction hash: 0x1027c0b30c5c584532143c7948051acd741688fe2c00c670d03da4deeb9b5b3a
@@ -221,7 +221,7 @@ We can set the time to allow for each request in terms of block height. If you w
 
 `npx oz send-tx`
 ? Pick a network lrtn_testnet
-? Pick an instance HarmonyFaucet at 0x4B203bB02fDBd702610b4d2564beAd3af82bd7d2
+? Pick an instance HarmonyFaucet at 0x3893a4E7a16eA08Ee750e8AbBD1A1aA10D60c0A2
 ? Select which function setBlockHeight(_blockHeight: uint256)
 ? _blockHeight: uint256: 18000
 ✓ Transaction successful. Transaction hash: 0x9eaad5521ccbb39144b9a76842fc77ec3ad0a6531467bcfce58319aaee000c34
